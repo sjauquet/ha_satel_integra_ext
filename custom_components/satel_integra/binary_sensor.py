@@ -6,6 +6,7 @@ from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
     BinarySensorEntity,
 )
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -20,6 +21,7 @@ from .const import (
     CONF_ZONE_TYPE,
     CONF_ZOME_MASK,
     CONF_ZONES,
+    DOMAIN,
     CONF_ZONES_ALARM,
     CONF_ZONES_MEM_ALARM,
     CONF_ZONES_TAMPER,
@@ -159,7 +161,7 @@ async def async_setup_platform(
     configured_outputs = discovery_info[CONF_OUTPUTS]
 
     for output_num, device_config_data in configured_outputs.items():
-        output_type = device_config_data[CONF_ZONE_TYPE]
+        output_type = device_config_data.get(CONF_ZONE_TYPE)
         output_name = device_config_data[CONF_ZONE_NAME]
         device = SatelIntegraBinarySensor(
             controller, output_num, output_name, output_type, "output", SIGNAL_OUTPUTS_UPDATED
@@ -216,6 +218,23 @@ async def async_setup_platform(
 
 
     async_add_entities(devices)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up binary sensors from a config entry."""
+    data = hass.data[DOMAIN + "_entries"][config_entry.entry_id]
+    discovery_info = {
+        CONF_ZONES: data["zones"],
+        CONF_OUTPUTS: data["outputs"],
+        CONF_EXPANDER: {},
+        CONF_KEYPAD: {},
+        CONF_TROUBLE: {},
+    }
+    await async_setup_platform(hass, {}, async_add_entities, discovery_info)
 
 
 class SatelIntegraBinarySensor(SatelIntegraEntity, BinarySensorEntity):

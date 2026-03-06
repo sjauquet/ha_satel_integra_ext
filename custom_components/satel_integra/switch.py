@@ -5,11 +5,13 @@ import logging
 from typing import Any
 
 from homeassistant.components.switch import SwitchEntity
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import ConfigType, DiscoveryInfoType
 from .entity import SatelIntegraEntity
+from .const import DOMAIN
 from . import (
     CONF_DEVICE_CODE,
     CONF_SWITCHABLE_OUTPUTS,
@@ -62,6 +64,21 @@ async def async_setup_platform(
 
 
     async_add_entities(devices)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up switches from a config entry."""
+    data = hass.data[DOMAIN + "_entries"][config_entry.entry_id]
+    discovery_info = {
+        CONF_SWITCHABLE_OUTPUTS: {},
+        CONF_ZONES: data["zones"],
+        CONF_DEVICE_CODE: data["device_code"],
+    }
+    await async_setup_platform(hass, {}, async_add_entities, discovery_info)
 
 
 class SatelIntegraSwitch(SatelIntegraEntity, SwitchEntity):

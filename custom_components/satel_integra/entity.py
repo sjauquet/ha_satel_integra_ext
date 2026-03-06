@@ -5,6 +5,7 @@ import logging
 from homeassistant.helpers.entity import Entity
 
 from .const import (
+    DATA_SATEL,
     DOMAIN,
 )
 
@@ -29,3 +30,14 @@ class SatelIntegraEntity(Entity):
     def name(self):
         """Return the name of the switch."""
         return self._name
+
+    @property
+    def device_info(self):
+        """Return device info to group all Satel entities under a single device."""
+        host = self.hass.data.get(DATA_SATEL + "_host", "satel")
+        return {
+            "identifiers": {(DOMAIN, host)},
+            "name": "Satel Integra 2026",
+            "manufacturer": "Satel",
+            "model": "Integra",
+        }

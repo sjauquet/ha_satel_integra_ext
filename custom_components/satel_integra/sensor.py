@@ -5,6 +5,7 @@ import logging
 from datetime import timedelta
 
 from homeassistant.components.sensor import SensorEntity, SensorDeviceClass
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import UnitOfTemperature
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -15,6 +16,7 @@ from .const import (
     DATA_SATEL,
     CONF_TEMP_SENSORS,
     CONF_TEMP_SENSOR_NAME,
+    DOMAIN,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -35,6 +37,16 @@ async def async_setup_platform(
         [SatelIntegraTemperatureSensor(controller, sensor_num, device_config_data[CONF_TEMP_SENSOR_NAME])
             for sensor_num, device_config_data in discovery_info[CONF_TEMP_SENSORS].items()],
         update_before_add=True)
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up sensors from a config entry."""
+    discovery_info = {CONF_TEMP_SENSORS: {}}
+    await async_setup_platform(hass, {}, async_add_entities, discovery_info)
+
 
 PARALLEL_UPDATES = 0
 SCAN_INTERVAL = timedelta(seconds=120)

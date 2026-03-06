@@ -12,6 +12,7 @@ from homeassistant.components.alarm_control_panel import (
     AlarmControlPanelEntityFeature,
     AlarmControlPanelState,
 )
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -25,6 +26,7 @@ from .const import (
     CONF_DEVICE_PARTITIONS,
     CONF_ZONE_NAME,
     DATA_SATEL,
+    DOMAIN,
     SIGNAL_PANEL_MESSAGE,
 )
 
@@ -68,6 +70,18 @@ async def async_setup_platform(
         devices.append(device)
 
     async_add_entities(devices)
+
+
+async def async_setup_entry(
+    hass: HomeAssistant,
+    config_entry: ConfigEntry,
+    async_add_entities: AddEntitiesCallback,
+) -> None:
+    """Set up alarm control panels from a config entry."""
+    data = hass.data[DOMAIN + "_entries"][config_entry.entry_id]
+    discovery_info = {CONF_DEVICE_PARTITIONS: data["partitions"]}
+    await async_setup_platform(hass, {}, async_add_entities, discovery_info)
+
 
 class SatelIntegraAlarmPanel(SatelIntegraEntity, alarm.AlarmControlPanelEntity):
     """Representation of an AlarmDecoder-based alarm panel."""

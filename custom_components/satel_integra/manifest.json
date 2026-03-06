@@ -1,11 +1,12 @@
 {
   "domain": "satel_integra",
-  "name": "Alternative Satel Integra extended by Alessio Burgassi",
+  "name": "Satel Integra 2026",
   "codeowners": [],
   "documentation": "https://github.com/alessioburgassi/ha_satel_integra_ext/tree/refs/heads/main",
   "iot_class": "local_push",
   "issue_tracker": "https://github.com/alessioburgassi/ha_satel_integra_ext/issues",
+  "config_flow": true,
   "loggers": ["satel_integra"],
-  "requirements": ["satel_integra2@git+https://github.com/alessioburgassi/satel_integra2.git"],
+  "requirements": ["satel_integra2@git+https://github.com/sjauquet/satel_integra2.git"],
   "version": "0"
 }
