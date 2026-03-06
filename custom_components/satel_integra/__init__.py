@@ -1,4 +1,5 @@
 """Support for Satel Integra devices."""
+import asyncio
 import collections
 
 from satel_integra2.satel_integra import AsyncSatel
@@ -375,6 +376,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     if need_discovery:
         _LOGGER.info("First-time setup — running auto-discovery")
         discovered = await controller.discover_devices()
+
+        # The ETHM module sometimes sends a 17-byte handshake on the first TCP
+        # connection and immediately closes it, causing discovery to return empty.
+        # Reconnect once and retry if that happens.
+        if not any(discovered.values()):
+            _LOGGER.warning(
+                "Discovery returned 0 devices (likely ETHM initial handshake). "
+                "Reconnecting and retrying..."
+            )
+            await asyncio.sleep(0.5)
+            await controller.connect()
+            if controller.connected:
+                discovered = await controller.discover_devices()
 
         for zone_id, info in discovered['zones'].items():
             zones[zone_id] = {

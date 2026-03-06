@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Satel Integra — Connection",
-        "description": "Configure the connection to your Satel Integra alarm panel via its ETHM ethernet module.\n\n**ETHM-1 Plus** — Newer module. Push/event mode. Optional AES encryption via integration key.\n**ETHM-1** — Original module. Polling mode (100 ms). AES encryption not supported.\n\nZones, partitions and outputs are **automatically discovered** from the panel — no YAML configuration needed.\n\nThe alarm code is only required to control programmable outputs (switches).",
+        "description": "Configure the connection to your Satel Integra alarm panel via its ETHM ethernet module.\n\nIntegra with ETHM-1 Plus Module (Newer). Push/event mode. Optional AES encryption via integration key.\nIntegra with ETHM-1 Module (Original). Polling mode (100 ms). AES encryption not supported.\n\nZones, partitions and outputs are automatically discovered from the panel — no YAML configuration needed.\nThis can take minutes, be patient !\n\nThe alarm code is only required to control programmable outputs (switches).",
         "data": {
           "module_type": "Module type",
           "host": "IP address or hostname",
