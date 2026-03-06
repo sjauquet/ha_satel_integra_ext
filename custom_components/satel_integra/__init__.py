@@ -336,19 +336,24 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     _LOGGER.info("Setting up Satel Integra: %s:%s (polling_mode=%s)", host, port, polling_mode)
 
     # Load stored discovery data, or prepare for first-time discovery
-    if "discovered_zones" in entry.data:
+    cached_zones = entry.data.get("discovered_zones", {})
+    cached_partitions = entry.data.get("discovered_partitions", {})
+    cached_outputs = entry.data.get("discovered_outputs", {})
+    has_valid_cache = bool(cached_zones or cached_partitions or cached_outputs)
+
+    if has_valid_cache:
         _LOGGER.info("Loading devices from stored config entry data")
         zones = {
             int(k): {CONF_ZONE_NAME: v, CONF_ZONE_TYPE: DEFAULT_ZONE_TYPE, CONF_ZOME_MASK: DEFAULT_ZONE_MASK}
-            for k, v in entry.data["discovered_zones"].items()
+            for k, v in cached_zones.items()
         }
         partitions = {
             int(k): {CONF_ZONE_NAME: v, CONF_ARM_HOME_MODE: DEFAULT_CONF_ARM_HOME_MODE}
-            for k, v in entry.data["discovered_partitions"].items()
+            for k, v in cached_partitions.items()
         }
         outputs = {
             int(k): {CONF_ZONE_NAME: v}
-            for k, v in entry.data["discovered_outputs"].items()
+            for k, v in cached_outputs.items()
         }
         need_discovery = False
     else:
