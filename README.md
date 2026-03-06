@@ -3,8 +3,10 @@
 # Alternative Satel Integra Home assistant integration fork by sjauquet
 
 This forks add:
-- support for ETHM 1 Satel card but keeps compatibility with ETHM 1 PLUS cards (auto selected)
-- auto detect of satel ZONES PARTITIONS and OUTPUTS
+- Support for ETHM 1 Satel card but keeps compatibility with ETHM 1 PLUS cards
+- Auto detect of satel ZONES PARTITIONS and OUTPUTS
+- Configuration trough the UI
+- 3 category instead of two: sensors, outputs and partitions
 
 ------------------------------------------------------------
 
