@@ -10,10 +10,6 @@
           "port": "TCP port",
           "code": "Alarm code (optional)"
         }
-      },
-      "discover": {
-        "title": "Discovering devices",
-        "description": "Scanning zones, partitions and outputs from the alarm panel.\n\nThis can take a few minutes, please wait..."
       }
     },
     "error": {

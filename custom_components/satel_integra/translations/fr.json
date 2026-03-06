@@ -10,10 +10,6 @@
           "port": "Port TCP",
           "code": "Code alarme (optionnel)"
         }
-      },
-      "discover": {
-        "title": "Découverte des appareils",
-        "description": "Scan des zones, partitions et sorties depuis le panneau d'alarme.\n\nCela peut prendre quelques minutes, veuillez patienter..."
       }
     },
     "error": {

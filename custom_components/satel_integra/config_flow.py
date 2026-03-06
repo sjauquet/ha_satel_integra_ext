@@ -46,11 +46,6 @@ class SatelIntegraConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     VERSION = 1
 
-    def __init__(self):
-        self._config: dict = {}
-        self._discover_task: asyncio.Task | None = None
-        self._discovered: dict | None = None
-
     async def async_step_user(self, user_input=None):
         """Handle the initial step."""
         errors = {}
@@ -75,8 +70,10 @@ class SatelIntegraConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 else:
                     await self.async_set_unique_id(host)
                     self._abort_if_unique_id_configured()
-                    self._config = user_input
-                    return await self.async_step_discover()
+                    return self.async_create_entry(
+                        title=f"Satel Integra ({host})",
+                        data=user_input,
+                    )
             except Exception:
                 _LOGGER.exception("Unexpected error during connection test")
                 errors["base"] = "unknown"
@@ -86,62 +83,3 @@ class SatelIntegraConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=_STEP_USER_SCHEMA,
             errors=errors,
         )
-
-    async def async_step_discover(self, user_input=None):
-        """Run device discovery with a progress indicator."""
-        if not self._discover_task:
-            self._discover_task = self.hass.async_create_task(
-                self._run_discovery()
-            )
-
-        if not self._discover_task.done():
-            return self.async_show_progress(
-                step_id="discover",
-                progress_action="discovering",
-                progress_task=self._discover_task,
-            )
-
-        try:
-            self._discovered = self._discover_task.result()
-        except Exception:
-            _LOGGER.exception("Discovery failed")
-            self._discovered = {"zones": {}, "partitions": {}, "outputs": {}}
-
-        return self.async_show_progress_done(next_step_id="finish")
-
-    async def async_step_finish(self, user_input=None):
-        """Create the config entry after discovery."""
-        data = dict(self._config)
-        discovered = self._discovered or {"zones": {}, "partitions": {}, "outputs": {}}
-        data["discovered_zones"] = {
-            str(k): v["name"] for k, v in discovered["zones"].items()
-        }
-        data["discovered_partitions"] = {
-            str(k): v["name"] for k, v in discovered["partitions"].items()
-        }
-        data["discovered_outputs"] = {
-            str(k): v["name"] for k, v in discovered["outputs"].items()
-        }
-        host = data[CONF_HOST]
-        return self.async_create_entry(
-            title=f"Satel Integra ({host})",
-            data=data,
-        )
-
-    async def _run_discovery(self):
-        """Connect to the panel and run device discovery."""
-        host = self._config[CONF_HOST]
-        port = self._config.get(CONF_PORT, DEFAULT_PORT)
-        polling_mode = self._config.get(CONF_MODULE_TYPE) == MODULE_ETHM1
-        controller = AsyncSatel(
-            host, port, asyncio.get_event_loop(),
-            polling_mode=polling_mode,
-        )
-        try:
-            if await controller.connect():
-                return await controller.discover_devices()
-        except Exception as err:
-            _LOGGER.warning("Discovery error: %s", err)
-        finally:
-            controller.close()
-        return {"zones": {}, "partitions": {}, "outputs": {}}
