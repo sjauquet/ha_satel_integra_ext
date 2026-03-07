@@ -23,9 +23,9 @@ Fork of [alessioburgassi/ha_satel_integra_ext](https://github.com/alessioburgass
 | `alarm_control_panel` | One per partition — arm/disarm |
 | `binary_sensor` | Zones (violated, alarm, tamper, mask, bypass...) and outputs |
 | `switch` | Switchable/programmable outputs (YAML config only) |
+| `sensor` | Temperature sensors (if configured) |
 
 > **Tested hardware:** ETHM-1 Plus only. ETHM-1 (original polling mode) is included from the upstream codebase but has **not been tested** — use at your own risk.
-| `sensor` | Temperature sensors (if configured) |
 
 ---
 

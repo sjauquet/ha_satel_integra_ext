@@ -24,7 +24,7 @@
     "step": {
       "init": {
         "title": "Satel Integra — Rescanner les appareils",
-        "description": "Cliquez sur Valider pour effacer le cache des zones/partitions/sorties et relancer la découverte automatique. L'intégration se rechargera automatiquement.\n\nUtilisez cette option après avoir ajouté de nouvelles zones ou sorties au panneau."
+        "description": "Cliquez sur Valider pour effacer le cache des zones/partitions/sorties et relancer la découverte automatique. L'intégration se rechargera automatiquement — vous pouvez fermer ce dialogue après avoir cliqué sur Valider.\n\nLa découverte peut prendre plusieurs minutes. Utilisez cette option après avoir ajouté de nouvelles zones ou sorties au panneau."
       }
     }
   }

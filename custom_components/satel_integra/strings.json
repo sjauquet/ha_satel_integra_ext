@@ -24,7 +24,7 @@
     "step": {
       "init": {
         "title": "Satel Integra — Re-scan devices",
-        "description": "Click Submit to clear the cached zones/partitions/outputs and re-run auto-discovery. The integration will reload automatically.\n\nUse this after adding new zones or outputs to the panel."
+        "description": "Click Submit to clear the cached zones/partitions/outputs and re-run auto-discovery. The integration will reload automatically — you can close this dialog after clicking Submit.\n\nDiscovery can take several minutes. Use this after adding new zones or outputs to the panel."
       }
     }
   }

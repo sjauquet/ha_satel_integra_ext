@@ -250,57 +250,57 @@ async def _do_setup(hass: HomeAssistant, conf: dict, config: dict | None = None)
     @callback
     def zones_violated_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones VIOLATED callback, status: %s", status)
+        _LOGGER.debug("Zones VIOLATED callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_VIOLATED_UPDATED, status[ZONES])
     @callback
     def zones_alarm_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones ALARM callback, status: %s", status)
+        _LOGGER.debug("Zones ALARM callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_ALARM_UPDATED, status[ZONES])
     @callback
     def zones_mem_alarm_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones MEMORY ALARM callback, status: %s", status)
+        _LOGGER.debug("Zones MEMORY ALARM callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_ALARM_UPDATED, status[ZONES])
     @callback
     def zones_tamper_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones TAMPER callback, status: %s", status)
+        _LOGGER.debug("Zones TAMPER callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TAMPER_UPDATED, status[ZONES])
     @callback
     def zones_mem_tamper_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones MEM TAMPER callback, status: %s", status)
+        _LOGGER.debug("Zones MEM TAMPER callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_TAMPER_UPDATED, status[ZONES])
     @callback
     def zones_bypass_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones BYPASS callback, status: %s", status)
+        _LOGGER.debug("Zones BYPASS callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_BYPASS_UPDATED, status[ZONES])
     @callback
     def zones_masked_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones MASK callback, status: %s", status)
+        _LOGGER.debug("Zones MASK callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MASKED_UPDATED, status[ZONES])
     @callback
     def zones_mem_masked_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("Zones MEM MASKED callback, status: %s", status)
+        _LOGGER.debug("Zones MEM MASKED callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_MASKED_UPDATED, status[ZONES])
     @callback
     def outputs_update_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("OUTPUT updated callback, status: %s", status)
+        _LOGGER.debug("OUTPUT updated callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_OUTPUTS_UPDATED, status["outputs"])
     @callback
     def trouble_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("TROUBLE callback, status: %s", status)
+        _LOGGER.debug("TROUBLE callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TROUBLE_UPDATED, status["trouble"])
     @callback
     def trouble2_callback(status):
         """Update zone objects as per notification from the alarm."""
-        _LOGGER.warning("TROUBLE2 callback, status: %s", status)
+        _LOGGER.debug("TROUBLE2 callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TROUBLE2_UPDATED, status["trouble2"])
 
     # Create a task instead of adding a tracking job, since this task will
@@ -433,47 +433,47 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         async_dispatcher_send(hass, SIGNAL_PANEL_MESSAGE)
     @callback
     def zones_violated_callback(status):
-        _LOGGER.warning("Zones VIOLATED callback, status: %s", status)
+        _LOGGER.debug("Zones VIOLATED callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_VIOLATED_UPDATED, status[ZONES])
     @callback
     def zones_alarm_callback(status):
-        _LOGGER.warning("Zones ALARM callback, status: %s", status)
+        _LOGGER.debug("Zones ALARM callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_ALARM_UPDATED, status[ZONES])
     @callback
     def zones_mem_alarm_callback(status):
-        _LOGGER.warning("Zones MEMORY ALARM callback, status: %s", status)
+        _LOGGER.debug("Zones MEMORY ALARM callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_ALARM_UPDATED, status[ZONES])
     @callback
     def zones_tamper_callback(status):
-        _LOGGER.warning("Zones TAMPER callback, status: %s", status)
+        _LOGGER.debug("Zones TAMPER callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TAMPER_UPDATED, status[ZONES])
     @callback
     def zones_mem_tamper_callback(status):
-        _LOGGER.warning("Zones MEM TAMPER callback, status: %s", status)
+        _LOGGER.debug("Zones MEM TAMPER callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_TAMPER_UPDATED, status[ZONES])
     @callback
     def zones_bypass_callback(status):
-        _LOGGER.warning("Zones BYPASS callback, status: %s", status)
+        _LOGGER.debug("Zones BYPASS callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_BYPASS_UPDATED, status[ZONES])
     @callback
     def zones_masked_callback(status):
-        _LOGGER.warning("Zones MASK callback, status: %s", status)
+        _LOGGER.debug("Zones MASK callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MASKED_UPDATED, status[ZONES])
     @callback
     def zones_mem_masked_callback(status):
-        _LOGGER.warning("Zones MEM MASKED callback, status: %s", status)
+        _LOGGER.debug("Zones MEM MASKED callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_MEM_MASKED_UPDATED, status[ZONES])
     @callback
     def outputs_update_callback(status):
-        _LOGGER.warning("OUTPUT updated callback, status: %s", status)
+        _LOGGER.debug("OUTPUT updated callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_OUTPUTS_UPDATED, status["outputs"])
     @callback
     def trouble_callback(status):
-        _LOGGER.warning("TROUBLE callback, status: %s", status)
+        _LOGGER.debug("TROUBLE callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TROUBLE_UPDATED, status["trouble"])
     @callback
     def trouble2_callback(status):
-        _LOGGER.warning("TROUBLE2 callback, status: %s", status)
+        _LOGGER.debug("TROUBLE2 callback, status: %s", status)
         async_dispatcher_send(hass, SIGNAL_TROUBLE2_UPDATED, status["trouble2"])
 
     if not polling_mode:
