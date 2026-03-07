@@ -501,3 +501,11 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         controller.close()
     hass.data.pop(DATA_SATEL + "_host", None)
     return unload_ok
+
+
+async def async_remove_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
+    """Clean up entity registry when the integration is deleted."""
+    from homeassistant.helpers import entity_registry as er
+    registry = er.async_get(hass)
+    for entity_entry in er.async_entries_for_config_entry(registry, entry.entry_id):
+        registry.async_remove(entity_entry.entity_id)
