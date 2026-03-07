@@ -93,8 +93,12 @@ class SatelIntegraSwitch(SatelIntegraEntity, SwitchEntity):
         self._code = code
         self._device_type = device_type
         self._react_to_signal = react_to_signal
-        if device_type == CONF_SWITCHABLE_BYPASS:
-            self._attr_entity_registry_enabled_default = False
+        self._is_bypass = device_type == CONF_SWITCHABLE_BYPASS
+
+    @property
+    def entity_registry_enabled_default(self) -> bool:
+        """Bypass switches are disabled by default."""
+        return not self._is_bypass
 
     async def async_added_to_hass(self) -> None:
         """Register callbacks."""

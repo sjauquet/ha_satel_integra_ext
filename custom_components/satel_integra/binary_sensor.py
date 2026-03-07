@@ -252,8 +252,12 @@ class SatelIntegraBinarySensor(SatelIntegraEntity, BinarySensorEntity):
         self._state = 0
         self._attr_unique_id = f"satel_{device_type}_{zone_type}_{device_number}"
         self._react_to_signal = react_to_signal
-        if device_type == CONF_ZONES_MEM_TAMPER:
-            self._attr_entity_registry_enabled_default = False
+        self._is_mem_tamper = device_type == CONF_ZONES_MEM_TAMPER
+
+    @property
+    def entity_registry_enabled_default(self) -> bool:
+        """Mem tamper sensors are disabled by default."""
+        return not self._is_mem_tamper
 
     async def async_added_to_hass(self) -> None:
         """Initialize state and register callbacks."""
