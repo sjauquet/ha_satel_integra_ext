@@ -27,7 +27,7 @@ Fork of [alessioburgassi/ha_satel_integra_ext](https://github.com/alessioburgass
 | `switch` | Switchable/programmable outputs (YAML config only) |
 | `sensor` | Temperature sensors (if configured) |
 
-> **Tested hardware:** ETHM-1 Plus only. ETHM-1 (original polling mode) is included from the upstream codebase but has **not been tested** — use at your own risk.
+> **Tested hardware:** ETHM-1 (original polling mode). ETHM-1 Plus (push/event mode) is included from the upstream codebase but has **not been tested** — use at your own risk.
 
 ---
 
@@ -141,7 +141,7 @@ satel_integra:
 - **Zones or outputs still missing after rescan**: verify the device is correctly configured in DloadX **and** that the configuration has been sent to the panel ("Send to Panel" / "Download"). Devices configured in DloadX but not downloaded to the panel are not visible via ETHM.
 - **Partitions missing**: check HA logs for `Pass 1/2` and `Partition X discovered` lines. If partitions are absent, the panel may require a specific integration key (AES encryption).
 - **Cannot connect**: verify IP address, port (default 7094), and that the ETHM module is reachable from HA.
-- **"17 bytes read" warning in logs**: harmless artifact from the ETHM-1 Plus on the very first TCP connection — can be ignored.
+- **"17 bytes read" warning in logs**: harmless artifact on the very first TCP connection (seen on ETHM-1) — silenced since v3.8, can be ignored on older versions.
 
 ---
 
