@@ -56,7 +56,13 @@ The integration connects, validates the connection, discovers all zones/partitio
 
 ## Re-discovery
 
-If the panel configuration changes (new zones added, etc.), delete the integration entry in the UI and re-add it. Discovery runs automatically on first setup.
+If the panel configuration changes (new zones or outputs added in DloadX, etc.), trigger a re-scan without deleting the integration:
+
+**Settings → Devices & Services → Satel Integra → Configure → Re-scan panel**
+
+This clears the discovery cache and runs a fresh discovery on the next HA restart.
+
+> **Note:** First-time discovery typically takes **30–40 seconds** (two-pass batch query to the ETHM module — partitions+zones first, then outputs). Subsequent restarts load from cache and are instant.
 
 ---
 
@@ -130,10 +136,12 @@ satel_integra:
 
 ## Troubleshooting
 
-- **No entities created**: check HA logs for `Discovery complete: X zones, Y partitions, Z outputs`. If all zeros, the ETHM module may not be responding to device name queries.
-- **Partitions missing**: check logs for `Partition X (type=0x00) query result:` lines.
+- **No entities created**: check HA logs for `Discovery complete: X zones, Y partitions, Z outputs`. If all zeros, the ETHM module may not be responding to device name queries. Verify IP, port (default 7094), and network reachability.
+- **Outputs missing (0 outputs discovered)**: this was a bug fixed in v3.6. Make sure you are running v3.6 or later. The ETHM command buffer (~160 slots) was being overflowed by sending all 289 queries at once; v3.6 splits into two separate passes.
+- **Zones or outputs still missing after rescan**: verify the device is correctly configured in DloadX **and** that the configuration has been sent to the panel ("Send to Panel" / "Download"). Devices configured in DloadX but not downloaded to the panel are not visible via ETHM.
+- **Partitions missing**: check HA logs for `Pass 1/2` and `Partition X discovered` lines. If partitions are absent, the panel may require a specific integration key (AES encryption).
 - **Cannot connect**: verify IP address, port (default 7094), and that the ETHM module is reachable from HA.
-- **"17 bytes read" warning in logs**: harmless artifact from the ETHM module on connection — can be ignored.
+- **"17 bytes read" warning in logs**: harmless artifact from the ETHM-1 Plus on the very first TCP connection — can be ignored.
 
 ---
 
