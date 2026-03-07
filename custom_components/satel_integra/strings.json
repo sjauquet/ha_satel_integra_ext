@@ -19,5 +19,13 @@
     "abort": {
       "already_configured": "This alarm panel is already configured."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Satel Integra — Re-scan devices",
+        "description": "Click Submit to clear the cached zones/partitions/outputs and re-run auto-discovery. The integration will reload automatically.\n\nUse this after adding new zones or outputs to the panel."
+      }
+    }
   }
 }

@@ -19,5 +19,13 @@
     "abort": {
       "already_configured": "Ce panneau d'alarme est déjà configuré."
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Satel Integra — Rescanner les appareils",
+        "description": "Cliquez sur Valider pour effacer le cache des zones/partitions/sorties et relancer la découverte automatique. L'intégration se rechargera automatiquement.\n\nUtilisez cette option après avoir ajouté de nouvelles zones ou sorties au panneau."
+      }
+    }
   }
 }
