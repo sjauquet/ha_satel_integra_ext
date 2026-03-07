@@ -1,4 +1,6 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+[![Release](https://img.shields.io/github/v/release/sjauquet/ha_satel_integra_ext?style=for-the-badge&label=version)](https://github.com/sjauquet/ha_satel_integra_ext/releases)
+[![Downloads](https://img.shields.io/github/downloads/sjauquet/ha_satel_integra_ext/total?style=for-the-badge)](https://github.com/sjauquet/ha_satel_integra_ext/releases)
 
 # Satel Integra 2026 — Home Assistant integration (fork by sjauquet)
 
