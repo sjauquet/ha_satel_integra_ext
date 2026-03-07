@@ -8,5 +8,5 @@
   "config_flow": true,
   "loggers": ["satel_integra"],
   "requirements": ["satel_integra2@git+https://github.com/sjauquet/satel_integra2.git"],
-  "version": "3.2"
+  "version": "3.3"
 }
