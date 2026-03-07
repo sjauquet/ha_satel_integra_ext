@@ -91,9 +91,10 @@ class SatelIntegraSwitch(SatelIntegraEntity, SwitchEntity):
         super().__init__(controller, device_number, device_name, device_type) # should be "switch")
         self._state = False
         self._code = code
-        
         self._device_type = device_type
         self._react_to_signal = react_to_signal
+        if device_type == CONF_SWITCHABLE_BYPASS:
+            self._attr_entity_registry_enabled_default = False
 
     async def async_added_to_hass(self) -> None:
         """Register callbacks."""
